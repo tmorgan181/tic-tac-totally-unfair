@@ -1,6 +1,11 @@
 """
+Author: Trenton Morgan
+Date: 24-Dec-2022
 
 Reinforcement Learning Tic Tac Toe
+
+This script handles the driver function to execute the following reinforcement
+learning steps:
 
 1. Define the environment: Start by defining the environment in which the agent will operate.
     In this case, the environment will be a tic-tac-toe board.
@@ -30,12 +35,12 @@ from Agent import Agent
 
 def main():
 
-    board = Environment()
+    # board = Environment()
     # board.printBoard()
     # board.playMove('X', (1, 1))
     # board.printBoard()
 
-    agent = Agent()
+    agent = Agent(learning_rate = 0.1, exploration_rate = 0.01)
     # print(agent.chooseRandomMove(board))
 
     # pp(agent.state_space)
@@ -43,55 +48,11 @@ def main():
 
     # agent.printQTable()
 
-    agent.selfPlay(num_episodes = 1, board = board)
+    agent.selfPlay(num_episodes = 10000, agent_symbol = 'X')
+    agent.playHuman(agent_symbol = 'X')
 
     #TrainAgent(reps = 1)
     #TestAgent(reps = 1)
 
 if __name__ == "__main__":
     main()
-
-
-
-"""
-Current progress:
-
-i am working on tic tac toe with reinforcement learning. i am here:
-
-ok the q table is working, now i need to
-
-Loop through a number of episodes of self-play, during which the algorithm will explore the state space and update the Q-table. In each episode, the algorithm will:
-To loop through a number of episodes of self-play, you can use a for loop. Here is an example of how you can do this:
-
-Copy code
-for episode in range(num_episodes):
-    # Initialize the board
-    board = [[' ' for _ in range(3)] for _ in range(3)]
-    # Initialize the player to be 'X'
-    player = 'X'
-    
-    # Loop until the game is over or the board is full
-    while not is_game_over(board) and not is_board_full(board):
-        # Choose an action using the Q-table and the current state
-        action = choose_action(board, q_table)
-        # Update the board with the chosen action
-        board = update_board(board, action, player)
-        # Switch to the other player
-        player = 'O' if player == 'X' else 'X'
-    # Update the Q-table with the final reward for the episode
-    update_q_table(board, q_table)
-This code initializes the board and the player, and then enters a loop that continues until the game is over or the board is full. In each iteration of the loop, the algorithm chooses an action using the Q-table and the current state, updates the board with the chosen action, and switches to the other player. Once the game is over or the board is full, the Q-table is updated with the final reward for the episode.
-
-You will need to define the following helper functions:
-
-is_game_over(board): returns True if the game is over (i.e., someone has won or the board is full), and False otherwise.
-is_board_full(board): returns True if the board is full (i.e., all positions are occupied), and False otherwise.
-choose_action(board, q_table): chooses an action using the Q-table and the current state of the board.
-update_board(board, action, player): updates the board with the given action and player.
-update_q_table(board, q_table): updates the Q-table with the final reward for the episode.
- 
-i am currently on the update_q_table step. how do i do that?
-
-"""
-
-# also need to sanitize human input so we don't crash
